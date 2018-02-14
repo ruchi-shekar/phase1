@@ -16,12 +16,41 @@ APP = flask.Flask(__name__)
 def home():
     return flask.render_template('home.html')
 
-# @APP.route('/shops')
-# def coffeeshops() :
-#     return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = "Summer Moon Coffee Bar", location1 = "11005 Burnet Rd Ste 112 Austin, TX 78758", price1 = "$", rating1 = "4.5", photo1 = "https://s3-media3.fl.yelpcdn.com/bphoto/WQPD9JYeDyVju0inUEID7w/o.jpg",
-#                                  name2 = "Houndstooth Coffee", coffeeId2 = "2", location2 = " 401 Congress AveSte 100C Austin, TX 78701", price2 = "$$", rating2 = "4.5", photo2 = "https://s3-media3.fl.yelpcdn.com/bphoto/ITv825S32-REV1bISyfk5A/o.jpg",
-#                                  name3 = "Vintage Heart Coffee", coffeeId3 = "3", location3 = "1405 E 7th St Austin, TX 78702", price3 = "$", rating3 = "4.5", photo3 = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg")
+shop_1_name = "Summer Moon Coffee Bar"
+shop_1_location = "11005 Burnet Rd Ste 112 Austin, TX 78758"
+shop_1_price = "$"
+shop_1_rating = "4.5"
+shop_1_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/WQPD9JYeDyVju0inUEID7w/o.jpg"
+shop_1_phone = "737-300-1265"
 
+shop_2_name = "Houndstooth Coffee"
+shop_2_location = "401 Congress Ave Ste 100C Austin, TX 78701"
+shop_2_price = "$$"
+shop_2_rating = "4.5"
+shop_2_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/ITv825S32-REV1bISyfk5A/o.jpg"
+shop_2_phone = "512-394-6051"
+
+shop_3_name = "Vintage Heart Coffee"
+shop_3_location = "1405 E 7th St Austin, TX 78702"
+shop_3_price = "$"
+shop_3_rating = "4.5"
+shop_3_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
+shop_3_phone = "512-524-0583"
+
+@APP.route('/shops')
+def coffeeshops() :
+    return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
+                                 name2 = shop_2_name, coffeeId2 = "2", location2 = shop_2_location, price2 = shop_2_price, rating2 = shop_2_rating, photo2 = shop_2_photo,
+                                 name3 = shop_3_name, coffeeId3 = "3", location3 = shop_3_location, price3 = shop_3_price, rating3 = shop_3_rating, photo3 = shop_3_photo)
+
+@APP.route('/shops/<coffeeId>')
+def coffeeshop(coffeeId) :
+    if coffeeId is "1":
+        return flask.render_template('instance1.html', location = shop_1_location, name = shop_1_name, phone = shop_1_phone, price = shop_1_price, rating = shop_1_rating, photo = shop_1_photo)
+    if coffeeId is "2":
+        return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
+    if coffeeId is "3":
+        return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
 @APP.route('/scenic')
 def sceniclocations() :
     """
