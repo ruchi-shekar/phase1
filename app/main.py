@@ -6,6 +6,7 @@ import flask
 from flask import Flask, jsonify
 
 import githubstats
+from photo import Photo
 
 
 # Create the application.
@@ -156,9 +157,41 @@ def scenicdetails(placeID):
 
     return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo,  rating=rating, review1name=review1name, review1text=review1text, review1rating=review1rating, review2name=review2name, review2text=review2text, review2rating=review2rating)
 
-# @APP.route('/snapshots')
-# def home():
-#     return flask.render_template('snapshotsmain.html')
+@APP.route('/snapshots')
+def snapshotsmain():
+    photo1 = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
+    'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
+    photo2 = Photo('5', 'Don Mason', '-Dons', '0', '0', 'A great start to the day', 'https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg',
+    '#Austin #Camera #Houndstooth - Frost #Texas #United States \
+    #coffee #coffee houses #latte art #TX #USA #Nikon #Nikon F3T #cappuccino', '2', '1')
+    photo3 = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HAIRCUT COFFEE. HOUNDSTOOTH HAS THE CUTEST CUPS TOO. \
+    #ATX #CAFFEINE #COFFEE #HOUNDSTOOTH #AUSTIN @HOUNDSTOOTHCOFFEE' , 'https://farm9.staticflickr.com/8515/29772433785_43acb1720a.jpg',
+    '#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '1')
+    return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
+                                 title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
+                                 num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
+                                 username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
+                                 url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl,
+                                 id1 = photo1.id, id2 = photo2.id, id3 = photo3.id,
+                                 secret1 =  photo1.secret, secret2 = photo2.secret, secret3 = photo3.secret)
+
+@APP.route('/snapshots/<id>/<secret>')
+def snapshotsinstance(id, secret):
+    if id is '1' :
+        photo = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
+        'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
+    elif id is '2' :
+        photo = Photo('5', 'Don Mason', '-Dons', '0', '0', 'A great start to the day', 'https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg',
+        '#Austin #Camera #Houndstooth - Frost #Texas #United States \
+        #coffee #coffee houses #latte art #TX #USA #Nikon #Nikon F3T #cappuccino', '2', '2')
+    else :
+        photo = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HAIRCUT COFFEE. HOUNDSTOOTH HAS THE CUTEST CUPS TOO. \
+        #ATX #CAFFEINE #COFFEE #HOUNDSTOOTH #AUSTIN @HOUNDSTOOTHCOFFEE' , 'https://farm9.staticflickr.com/8515/29772433785_43acb1720a.jpg',
+        '#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '3')
+    return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
+                                title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
+
+
 
 @APP.route('/about')
 def about():
